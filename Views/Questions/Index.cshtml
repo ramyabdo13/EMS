@@ -1,0 +1,146 @@
+﻿@model IEnumerable<EMS.Models.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@* <p>
+    <a asp-action="Create">Create New</a>
+</p> *@
+<!-- Button to open the modal -->
+<button type="button" class="btn btn-primary" id="createNewQuestionButton">Create New Question</button>
+
+<!-- Modal structure -->
+<div class="modal fade" id="createQuestionModal" tabindex="-1" role="dialog" aria-labelledby="createQuestionModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createQuestionModalLabel">Create New Question</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body" id="createQuestionBody">
+                <!-- Content will be loaded here via AJAX -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        // When the button is clicked, load the Create view into the modal
+        $('#createNewQuestionButton').click(function () {
+            $.ajax({
+                url: '@Url.Action("Create", "Questions")', // Adjust to your controller action
+                type: 'GET',
+                success: function (data) {
+                    // Load the form into the modal body
+                    $('#createQuestionBody').html(data);
+                    // Show the modal
+                    $('#createQuestionModal').modal('show');
+                },
+                error: function () {
+                    alert('Failed to load the form');
+                }
+            });
+        });
+
+        // Handle form submission using AJAX
+        $(document).on('submit', '#createQuestionForm', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            $.ajax({
+                url: $(this).attr('action'),  // The form action (post request)
+                type: 'POST',
+                data: $(this).serialize(),    // Serialize form data
+                success: function (response) {
+                    if (response.success) {
+                        // Hide the modal if the creation was successful
+                        $('#createQuestionModal').modal('hide');
+                        // Redirect to the Index view or reload the page
+                        window.location.href = '@Url.Action("Index", "Questions")';
+                    } else {
+                        // Reload the form with validation errors
+                        $('#createQuestionBody').html(response);
+                    }
+                },
+                error: function () {
+                    alert('Failed to submit the form');
+                }
+            });
+        });
+    });
+</script>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayText("Code".ToString())
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionMark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfAnswers)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exam)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int rowNo=0;
+        }
+@foreach (var item in Model) {
+            <tr>
+                <td>
+                    @{
+                        rowNo = rowNo + 1;
+                    }
+                    @rowNo 
+            </td>
+            <td>
+                
+                @Html.DisplayFor(modelItem => item.QuestionContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionType)
+            </td>
+                <td align="center">
+                @Html.DisplayFor(modelItem => item.QuestionMark)
+            </td>
+                <td align="center">
+                @Html.DisplayFor(modelItem => item.NumberOfAnswers)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exam.ExamId)
+            </td>
+                <td white-space: nowrap>
+                    <a asp-action="Edit" asp-route-id="@item.QuestionId" class="btn btn-success">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.QuestionId" class="btn btn-info">Details</a> 
+                    <a asp-action="Delete" asp-route-id="@item.QuestionId" class="btn btn-danger">Delete</a>
+                    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+

@@ -1,0 +1,48 @@
+﻿@model EMS.Models.Question
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionContent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuestionContent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuestionType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionMark)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.QuestionMark)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NumberOfAnswers)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NumberOfAnswers)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Exam)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Exam.ExamId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.QuestionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

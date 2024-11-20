@@ -1,0 +1,52 @@
+﻿@model EMS.Models.Question
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ExamId" class="control-label"></label>
+                <select asp-for="ExamId" class ="form-control" asp-items="ViewBag.ExamId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionContent" class="control-label"></label>
+                <input asp-for="QuestionContent" class="form-control" />
+                <span asp-validation-for="QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionType" class="control-label"></label>
+                <input asp-for="QuestionType" class="form-control" />
+                <span asp-validation-for="QuestionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuestionMark" class="control-label"></label>
+                <input asp-for="QuestionMark" class="form-control" />
+                <span asp-validation-for="QuestionMark" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfAnswers" class="control-label"></label>
+                <input asp-for="NumberOfAnswers" class="form-control" />
+                <span asp-validation-for="NumberOfAnswers" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
