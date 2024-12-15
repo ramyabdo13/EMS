@@ -29,42 +29,62 @@
    
 
     <header>
+    @using Microsoft.AspNetCore.Identity
+    @inject SignInManager<IdentityUser> SignInManager
+    @inject UserManager<IdentityUser> UserManager
+
     <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="#home">
-                <img src="~/images/Logos/light-mode-logo.png" class="d-inline-block align-top" alt="React Bootstrap logo" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="basic-navbar-nav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسية</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Questions" asp-action="Index">بنك الاسئلة</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="">بيان الدرجات</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="">جدول الامتحانات</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" asp-area="" id="basic-nav-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            تقديم الطلبات
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="basic-nav-dropdown">
-                            <li><a class="dropdown-item" asp-area="">طلب تاجيل</a></li>
-                            <li><a class="dropdown-item" asp-area="">تقديم عذر</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <button class="sign-in btn btn-outline-info ml-3">تسجيل الدخول</button>
-                <button class="sign-up btn btn-outline-secondary">حساب جديد</button>
-            </div>
+      <div class="container"></div>
+        <a class="navbar-brand" href="#home">
+          <img src="~/images/Logos/light-mode-logo.png" class="d-inline-block align-top" alt="React Bootstrap logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="basic-navbar-nav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسية</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" asp-area="" asp-controller="Questions" asp-action="Index">بنك الاسئلة</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" asp-area="">بيان الدرجات</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" asp-area="">جدول الامتحانات</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" asp-area="" id="basic-nav-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                تقديم الطلبات
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="basic-nav-dropdown">
+                <li><a class="dropdown-item" asp-area="">طلب تاجيل</a></li>
+                <li><a class="dropdown-item" asp-area="">تقديم عذر</a></li>
+              </ul>
+            </li>
+          </ul>
+          @if (SignInManager.IsSignedIn(User))
+          {
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Manage">حسابي</a>
+              </li>
+              <li class="nav-item">
+                <form asp-area="" asp-controller="User" asp-action="Logout" method="post" class="form-inline">
+                  <button type="submit" class="btn btn-outline-danger">تسجيل الخروج</button>
+                </form>
+              </li>
+            </ul>
+          }
+          else
+          {
+            <button class="sign-in btn btn-outline-info ml-3" asp-area="" asp-controller="Account" asp-action="Login">تسجيل الدخول</button>
+            <button class="sign-up btn btn-outline-secondary" asp-area="" asp-controller="Account" asp-action="Register">حساب جديد</button>
+          }
         </div>
+      </div>
     </nav>
     <div class="container">
         <main role="main" class="pb-3">
