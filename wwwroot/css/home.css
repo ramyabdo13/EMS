@@ -1,0 +1,39 @@
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-evenly;
+}
+
+.feature-reverse {
+  flex-direction: row-reverse;
+}
+
+.feature-img {
+  width: 50%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.feature-description {
+  flex: 1;
+  text-align: right;
+  max-width: 600px;
+}
+
+.feature-description h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.feature-description p {
+  font-size: 1em;
+  line-height: 1.6;
+}
